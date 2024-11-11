@@ -230,3 +230,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
     window.addEventListener('scroll', optimizedScroll);
 });
+
+// 모바일 체크 함수
+const isMobile = () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
+
+// 모바일일 경우 커서 시스템 비활성화
+if(isMobile()) {
+    document.querySelector('.cursor-system').style.display = 'none';
+} else {
+    // 데스크톱에서만 커서 시스템 초기화
+    const cursorSystem = new CursorSystem();
+}
