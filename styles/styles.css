@@ -125,3 +125,80 @@ body {
 .work-item:hover {
     transform: translateY(-10px);
 }
+
+/* 커서 시스템 스타일 */
+.cursor-system {
+    pointer-events: none;
+    position: fixed;
+    z-index: 9999;
+}
+
+.cursor-main {
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid white;
+    border-radius: 50%;
+    position: fixed;
+    transition: transform 0.1s ease;
+    transform-origin: center center;
+}
+
+.cursor-trail {
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    position: fixed;
+    opacity: 0.5;
+}
+
+.cursor-dot {
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    position: fixed;
+}
+
+/* 인터랙티브 요소 스타일 */
+.interactive-area {
+    position: relative;
+    padding: 2rem;
+}
+
+.parallax-element {
+    font-size: 2rem;
+    color: white;
+    transition: transform 0.2s ease;
+}
+
+.magnetic-element {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    cursor: none;
+    transition: transform 0.3s ease;
+}
+
+.distort-element {
+    position: relative;
+    overflow: hidden;
+    
+    img {
+        width: 100%;
+        transition: transform 0.3s ease;
+    }
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+    .cursor-system {
+        display: none;
+    }
+    
+    .magnetic-element {
+        cursor: pointer;
+    }
+}
