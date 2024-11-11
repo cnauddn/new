@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Landing Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <nav class="nav">
+        <div class="nav-logo">LOGO</div>
+        <div class="nav-links">
+            <a href="#home" class="magnetic-button">Home</a>
+            <a href="#about" class="magnetic-button">About</a>
+            <a href="#work" class="magnetic-button">Work</a>
+            <a href="#contact" class="magnetic-button">Contact</a>
+        </div>
+    </nav>
+
+    <main>
+        <section id="hero" class="hero">
+            <div class="hero-content">
+                <h1 class="animate-text">Welcome to</h1>
+                <h2 class="animate-text">Interactive Experience</h2>
+                <p class="animate-text">Scroll down to explore</p>
+            </div>
+            <div class="hero-background"></div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="content-wrapper">
+                <h2 class="section-title">About Us</h2>
+                <p class="section-text">Interactive content with smooth animations.</p>
+            </div>
+        </section>
+
+        <section id="work" class="section">
+            <div class="content-wrapper">
+                <h2 class="section-title">Our Work</h2>
+                <div class="work-grid">
+                    <div class="work-item">Project 1</div>
+                    <div class="work-item">Project 2</div>
+                    <div class="work-item">Project 3</div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
