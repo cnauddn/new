@@ -222,3 +222,41 @@ body {
 }
 
 /* 추가 스타일링 */
+
+/* 기존 CSS 코드 유지하면서 아래 내용 추가 */
+
+/* 프로젝트 카드 스타일 */
+.project-card {
+    width: 100%;
+    max-width: 350px;
+    margin: 20px;
+    transition: transform 0.3s ease;
+}
+
+/* 애니메이션 효과 */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 반응형 미디어 쿼리 */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+    }
+    
+    .project-card {
+        width: 100%;
+    }
+
+    nav {
+        padding: 10px;
+    }
+}
+
