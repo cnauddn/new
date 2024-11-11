@@ -90,3 +90,143 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
+// 커서 시스템
+class CursorSystem {
+    constructor() {
+        this.cursor = document.querySelector('.cursor-main');
+        this.trail = document.querySelector('.cursor-trail');
+        this.dot = document.querySelector('.cursor-dot');
+        this.pos = { x: 0, y: 0 };
+        this.mouse = { x: 0, y: 0 };
+        this.speed = 0.1;
+        
+        this.init();
+    }
+    
+    init() {
+        // 마우스 이동 추적
+        document.addEventListener('mousemove', (e) => {
+            this.mouse.x = e.clientX;
+            this.mouse.y = e.clientY;
+        });
+        
+        // 애니메이션 루프
+        this.animate();
+        
+        // 인터랙티브 요소 이벤트
+        this.handleInteractions();
+    }
+    
+    animate() {
+        // 부드러운 커서 이동
+        this.pos.x += (this.mouse.x - this.pos.x) * this.speed;
+        this.pos.y += (this.mouse.y - this.pos.y) * this.speed;
+        
+        // 커서 요소 위치 업데이트
+        this.cursor.style.transform = `translate(${this.pos.x - 15}px, ${this.pos.y - 15}px)`;
+        this.trail.style.transform = `translate(${this.mouse.x - 5}px, ${this.mouse.y - 5}px)`;
+        this.dot.style.transform = `translate(${this.mouse.x - 2}px, ${this.mouse.y - 2}px)`;
+        
+        requestAnimationFrame(() => this.animate());
+    }
+    
+    handleInteractions() {
+        // 마그네틱 요소
+        document.querySelectorAll('.magnetic-element').forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+                this.cursor.style.transform = `translate(${this.pos.x - 15}px, ${this.pos.y - 15}px) scale(1.5)`;
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = '';
+                this.cursor.style.transform = `translate(${this.pos.x - 15}px, ${this.pos.y - 15}px) scale(1)`;
+            });
+        });
+    }
+}
+
+// 파티클 시스템
+class ParticleSystem {
+    constructor() {
+        this.canvas = document.getElementById('particle-canvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.particles = [];
+        this.mouse = { x: 0, y: 0 };
+        
+        this.init();
+    }
+    
+    init() {
+        this.resize();
+        this.createParticles();
+        this.animate();
+        
+        window.addEventListener('resize', () => this.resize());
+        document.addEventListener('mousemove', (e) => {
+            this.mouse.x = e.clientX;
+            this.mouse.y = e.clientY;
+        });
+    }
+    
+    resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+    }
+    
+    createParticles() {
+        for(let i = 0; i < 50; i++) {
+            this.particles.push({
+                x: Math.random() * this.canvas.width,
+                y: Math.random() * this.canvas.height,
+                speed: 2,
+                size: Math.random() * 3
+            });
+        }
+    }
+    
+    animate() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        this.particles.forEach(p => {
+            // 파티클 움직임 로직
+            const dx = this.mouse.x - p.x;
+            const dy = this.mouse.y - p.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            
+            if(dist < 100) {
+                p.x += (dx / dist) * p.speed;
+                p.y += (dy / dist) * p.speed;
+            }
+            
+            this.ctx.beginPath();
+            this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            this.ctx.fillStyle = 'rgba(255,255,255,0.5)';
+            this.ctx.fill();
+        });
+        
+        requestAnimationFrame(() => this.animate());
+    }
+}
+
+// 초기화
+document.addEventListener('DOMContentLoaded', () => {
+    const cursorSystem = new CursorSystem();
+    const particleSystem = new ParticleSystem();
+    
+    // 성능 최적화
+    let rafId = null;
+    const optimizedScroll = () => {
+        if(rafId) return;
+        rafId = requestAnimationFrame(() => {
+            // 스크롤 기반 효과
+            rafId = null;
+        });
+    };
+    
+    window.addEventListener('scroll', optimizedScroll);
+});
