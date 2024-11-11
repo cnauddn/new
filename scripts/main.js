@@ -243,3 +243,39 @@ if(isMobile()) {
     // 데스크톱에서만 커서 시스템 초기화
     const cursorSystem = new CursorSystem();
 }
+
+// 스무스 스크롤 구현
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+
+// 페이드인 애니메이션
+const fadeElements = document.querySelectorAll('.fade-in');
+
+const fadeInOnScroll = () => {
+    fadeElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        if (elementTop < window.innerHeight - 100) {
+            element.classList.add('visible');
+        }
+    });
+};
+
+window.addEventListener('scroll', fadeInOnScroll);
+
+// 프로젝트 카드 호버 효과
+document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-10px)';
+    });
+    
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0)';
+    });
+});
+
